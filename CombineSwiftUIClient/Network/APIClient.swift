@@ -13,7 +13,7 @@ struct APIClient {
     
     enum Method {
         static let baseURL = URL(string: "https://rickandmortyapi.com/api/")!
-        static let characterPath = "chatacter/"
+        static let characterPath = "character/"
         
         case page(Int)
         case character(Int)
@@ -35,7 +35,7 @@ struct APIClient {
         }
     }
     
-    enum Error: LocalizedError {
+    enum Error: LocalizedError, Identifiable {
         var id: String { localizedDescription }
         
         case unreachableAddress(url: URL)
@@ -55,6 +55,7 @@ struct APIClient {
     func page(num: Int) -> AnyPublisher<Page, Error> {
         return URLSession.shared
             .dataTaskPublisher(for: Method.page(num).url)
+            .print(Method.page(num).url.absoluteString)
             .handleEvents()
             .receive(on: queue)
             .map(\.data)

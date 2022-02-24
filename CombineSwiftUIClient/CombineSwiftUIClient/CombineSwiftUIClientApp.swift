@@ -12,7 +12,7 @@ struct CombineSwiftUIClientApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CharactersView(model: CharactersViewModel())
+            CharactersView(viewModel: CharactersViewModel())
         }
     }
 }
